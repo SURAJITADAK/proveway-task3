@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Boxes</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .box {
+            width: 200px;
+            height: 100px;
+            margin: 20px;
+            background-color: skyblue;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease, transform 0.3s ease;
+            position: relative;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        .box:not(.expanded):hover {
+            background-color: #00008B !important; /* Deep Blue */
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .expanded {
+            height: 200px;
+            background-color: purple !important;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px) scale(1.1);
+        }
+        .content {
+            display: none;
+            margin-top: 20px;
+        }
+        .expanded .content {
+            display: block;
+        }
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease, transform 0.3s ease;
+            border: none;
+            background-color: blue;
+            color: white;
+            border-radius: 3px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background-color: green;
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+        }
+        button:active {
+            background-color: darkgreen;
+            transform: translateY(2px) scale(1.05);
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="box" onclick="toggleBox(event, this)">Box 1
+        <div class="content">
+            <button onclick="event.stopPropagation()">Option 1</button>
+            <button onclick="event.stopPropagation()">Option 2</button>
+            <button onclick="event.stopPropagation()">Option 3</button>
+        </div>
+    </div>
+    <div class="box" onclick="toggleBox(event, this)">Box 2
+        <div class="content">
+            <button onclick="event.stopPropagation()">Option A</button>
+            <button onclick="event.stopPropagation()">Option B</button>
+            <button onclick="event.stopPropagation()">Option C</button>
+        </div>
+    </div>
+    <div class="box" onclick="toggleBox(event, this)">Box 3
+        <div class="content">
+            <button onclick="event.stopPropagation()">Action X</button>
+            <button onclick="event.stopPropagation()">Action Y</button>
+            <button onclick="event.stopPropagation()">Action Z</button>
+        </div>
+    </div>
+    <script>
+        function toggleBox(event, selectedBox) {
+            document.querySelectorAll('.box').forEach(box => {
+                if (box === selectedBox) {
+                    box.classList.toggle('expanded');
+                    if (box.classList.contains('expanded')) {
+                        box.style.backgroundColor = 'purple';
+                    } else {
+                        box.style.backgroundColor = 'skyblue';
+                    }
+                } else {
+                    box.classList.remove('expanded');
+                    box.style.backgroundColor = 'skyblue';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
